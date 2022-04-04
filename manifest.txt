@@ -1,0 +1,2 @@
+## The list of files in this version except the manifest.txt file itself.
+utils/bin/backup_db.sh
