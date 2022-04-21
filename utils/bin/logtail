@@ -1,0 +1,8 @@
+#!/bin/bash
+
+logdate="${1:-$(date +%Y-%m-%d)}"
+
+logfile="laravel-${logdate}.log"
+docker_service='php' ## TODO: How to make this dynamic?
+                     ##       There should be service initialization/registration 
+docker-compose exec $docker_service tail -f storage/logs/$logfile
