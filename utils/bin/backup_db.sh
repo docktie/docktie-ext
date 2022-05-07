@@ -10,12 +10,17 @@ TIMESTAMP=${1:-"$(date +%Y.%m.%d.%H%M%S)"}
 
 ## Taken from exported variables from docktie
 PROJECT_DIR="${DOCKTIE_COMMON_PARENTDIR}"
-PROJECT_ROOT="${PROJECT_ROOTDIR}"
 
 DB_SERVICE_NAME='mysql'
 
-MAIN_ENV_FILE=${PROJECT_ROOT}/.env
-. $MAIN_ENV_FILE
+## Source the env file for dockerized project in docker-compose format.
+MAIN_ENV_FILE="$(dirname $DOCKTIE_DOCKER_COMPOSE_FULLPATH)/.env"
+if [[ -e $MAIN_ENV_FILE ]]; then
+   . $MAIN_ENV_FILE
+else
+    echo "ERROR: $MAIN_ENV_FILE not found. Aborting!"
+    exit 1
+fi
 
 ## Make sure backup folder exist
 BACKUP_DIR="${PROJECT_DIR}/backups"
